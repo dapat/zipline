@@ -288,10 +288,12 @@ class PerformancePeriod(object):
         setattr(self, field, value)
 
     def _get_payout_total(self, positions):
+        #import pdb; pdb.set_trace()
         payouts = []
         for asset, old_price in iteritems(self._payout_last_sale_prices):
             pos = positions[asset]
             amount = pos.amount
+            #import pdb; pdb.set_trace()
             payout = calc_payout(
                 asset.multiplier,
                 amount,
@@ -303,6 +305,7 @@ class PerformancePeriod(object):
 
     def calculate_performance(self):
         pt = self.position_tracker
+        #import pdb; pdb.set_trace()
         pos_stats = pt.stats()
         self.ending_value = pos_stats.net_value
         self.ending_exposure = pos_stats.net_exposure
@@ -360,6 +363,7 @@ class PerformancePeriod(object):
             self.orders_by_id[order.id] = order
 
     def handle_execution(self, txn):
+        #import pdb; pdb.set_trace()
         self.cash_flow += self._calculate_execution_cash_flow(txn)
 
         asset = self.asset_finder.retrieve_asset(txn.sid)
